@@ -49,7 +49,15 @@ public class Quiz2 {
                 System.out.print("Enter choice: ");
                 int quizTypeChoice = sc.nextInt();
                 sc.nextLine();
-                quizTypes[quizCount] = (quizTypeChoice == 1) ? "Multiple Choice" : "Direct Answer";
+                
+                if (quizTypeChoice == 1) {
+                    quizTypes[quizCount] = "Multiple Choice";
+                } else if (quizTypeChoice == 2) {
+                    quizTypes[quizCount] = "Direct Answer";
+                } else {
+                    System.out.println("Invalid selection. Defaulting to Direct Answer.");
+                    quizTypes[quizCount] = "Direct Answer";
+                }
 
                 System.out.print("How many questions will this quiz have? ");
                 int numQuestions = sc.nextInt();
