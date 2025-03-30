@@ -42,11 +42,17 @@ public class QuizSystemFinal {
                         
                         switch (teacherChoice) {
                             case 1:
-                                System.out.print("\nEnter your name (Teacher): ");
+                                System.out.println("\n====================\n");
+
+                                System.out.print("Enter your name (Teacher): ");
                                 teacherNames[quizCount] = sc.nextLine();
+
+                                System.out.println("\n====================\n");
                                 
                                 System.out.print("Enter quiz name: ");
                                 quizNames[quizCount] = sc.nextLine();
+
+                                System.out.println("\n====================\n");
                                 
                                 System.out.println("Select quiz type:");
                                 System.out.println("1. Multiple Choice");
@@ -60,11 +66,16 @@ public class QuizSystemFinal {
                                 } else if (quizTypeChoice == 2) {
                                     quizTypes[quizCount] = "Direct Answer";
                                 } else {
+
+                                    System.out.println("\n====================\n");
+
                                     System.out.println("Invalid selection. Defaulting to Direct Answer.");
                                     quizTypes[quizCount] = "Direct Answer";
                                 }
                                 
-                                System.out.print("How many questions? ");
+                                System.out.println("\n====================\n");
+
+                                System.out.print("How many questions will this quiz have ? ");
                                 int numQuestions = sc.nextInt();
                                 sc.nextLine();
                                 
@@ -72,9 +83,13 @@ public class QuizSystemFinal {
                                 quizAnswers[quizCount] = new String[numQuestions];
                                 quizChoices[quizCount] = (quizTypeChoice == 1) ? new String[numQuestions][4] : null;
                                 
+                                System.out.println("\n====================\n");
+
                                 for (int i = 0; i < numQuestions; i++) {
-                                    System.out.print("\nEnter question " + (i + 1) + ": ");
+                                    System.out.print("Enter question " + (i + 1) + ": ");
                                     quizQuestions[quizCount][i] = sc.nextLine();
+
+                                    System.out.println("\n====================\n");
                                     
                                     if (quizTypeChoice == 1) {
                                         System.out.println("Enter 4 choices:");
@@ -83,8 +98,12 @@ public class QuizSystemFinal {
                                             quizChoices[quizCount][i][j] = sc.nextLine();
                                         }
                                         System.out.print("Enter correct answer (A, B, C, or D): ");
+
+
+
                                     } else {
                                         System.out.print("Enter correct answer: ");
+                                        
                                     }
                                     quizAnswers[quizCount][i] = sc.nextLine().trim().toUpperCase();
                                 }
@@ -94,33 +113,70 @@ public class QuizSystemFinal {
                             
                             case 2:
                                 if (quizCount == 0) {
+
+                                    System.out.println("\n====================\n");
+
                                     System.out.println("No quizzes available.");
                                     break;
                                 }
-                                
+                                System.out.println("\n====================\n");
+
                                 System.out.println("\nAvailable Quizzes:");
                                 for (int i = 0; i < quizCount; i++) {
                                     System.out.println((i + 1) + ". " + quizNames[i] + " by " + teacherNames[i]);
+
+                                    System.out.println("\n====================\n");
                                 }
                                 
                                 System.out.print("Enter quiz number to delete: ");
                                 int delIndex = sc.nextInt() - 1;
-                                
-                                if (delIndex >= 0 && delIndex < quizCount) {
-                                    System.out.println("Deleting Quiz: " + quizNames[delIndex]);
-                                    for (int i = delIndex; i < quizCount - 1; i++) {
-                                        quizNames[i] = quizNames[i + 1];
-                                    }
-                                    quizCount--;
-                                    System.out.println("Quiz deleted.");
-                                    System.out.println("Remaining Quizzes:");
-                                    for (int i = 0; i < quizCount; i++) {
-                                        System.out.println((i + 1) + ". " + quizNames[i]);
+
+                                if (delIndex < 0 || delIndex >= quizCount) {
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Invalid quiz number.");
+                                    
+                                break;
+                                }
+
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Are you sure you want to delete this quiz? (Y/N): ");
+                                char confirm = sc.next().charAt(0);
+                                sc.nextLine();
+                                if (confirm == 'Y' || confirm == 'y') {
+                                    System.out.println("\n====================\n");
+
+                                    if (delIndex >= 0 && delIndex < quizCount) {
+                                        System.out.println("Deleting Quiz: " + quizNames[delIndex]);
+                                        for (int i = delIndex; i < quizCount - 1; i++) {
+                                            quizNames[i] = quizNames[i + 1];
+                                        }
+                                        quizCount--;
+                                        System.out.println("Quiz deleted.");
+                                        System.out.println("Remaining Quizzes:");
+                                        for (int i = 0; i < quizCount; i++) {
+                                            System.out.println((i + 1) + ". " + quizNames[i]);
+                                        }
                                     }
                                 }
+                                else {
+                                    System.out.println("\n====================\n");
+                                    System.out.println("Quiz deletion cancelled.");
+                                    break;
+                                }
+                                
                                 break;
                             
                             case 3:
+                                System.out.println("\n====================\n");
+
+                                if (quizCount == 0) {
+                                    System.out.println("No quizzes available.");
+                                    break;
+                                }
+                                System.out.println("Student Scores:");
+
                                 for (int i = 0; i < quizCount; i++) {
                                     System.out.println("Quiz: " + quizNames[i] + " (Total Items: " + quizQuestions[i].length + ")");
                                     for (int j = 0; j < studentCount[i]; j++) {
@@ -131,42 +187,76 @@ public class QuizSystemFinal {
                             
                             case 4:
                                 if (quizCount == 0) {
+                                    System.out.println("\n====================\n");
+                                    
                                     System.out.println("No quizzes available.");
                                     break;
                                 }
-                                System.out.println("\nAvailable Student Record:");
+
+                                System.out.println("\n====================\n");
+                                System.out.println("Available Student Record:");
                                 for (int i = 0; i < quizCount; i++) {
                                     System.out.println((i + 1) + ". " + quizNames[i] + " by " + teacherNames[i]);
                                     for (int j = 0; j < studentCount[i]; j++) {
                                         System.out.println(studentNames[i][j]);
                                     }
-                                    System.out.println();
                                 }
+                                System.out.println("\n====================\n");
+
                                 System.out.print("Enter quiz number to delete student record: ");
                                 int qIndex = sc.nextInt() - 1;
                                 sc.nextLine();
                                 
-                                if (qIndex < 0 || qIndex >= quizCount) break;
+                                if (qIndex < 0 || qIndex >= quizCount) {
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Invalid quiz number.");
+                                    break;
+                                }
                                 
+                                System.out.println("\n====================\n");
+
                                 System.out.print("Enter student name: ");
                                 String delStudent = sc.nextLine();
-                                
-                                for (int j = 0; j < studentCount[qIndex]; j++) {
-                                    if (studentNames[qIndex][j].equalsIgnoreCase(delStudent)) {
-                                        System.out.println("Deleting student record: " + studentNames[qIndex][j]);
-                                        for (int k = j; k < studentCount[qIndex] - 1; k++) {
-                                            studentNames[qIndex][k] = studentNames[qIndex][k + 1];
-                                            studentScores[qIndex][k] = studentScores[qIndex][k + 1];
-                                        }
-                                        studentCount[qIndex]--;
-                                        System.out.println("Student record deleted.");
-                                        System.out.println("Remaining Students:");
-                                        for (int j2 = 0; j2 < studentCount[qIndex]; j2++) {
-                                            System.out.println(studentNames[qIndex][j2] + " - " + studentScores[qIndex][j2]);
-                                        }
+
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Are you sure you want to delete the student record? (Y/N): ");
+                                char confirmDel = sc.next().charAt(0);
+                                sc.nextLine();
+
+                                if (confirmDel == 'Y' || confirmDel == 'y') {
+                                    if (studentCount[qIndex] == 0) {
+                                        System.out.println("\n====================\n");
+                                        System.out.println("No students available.");
                                         break;
                                     }
+                                        for (int j = 0; j < studentCount[qIndex]; j++) {
+                                            if (studentNames[qIndex][j].equalsIgnoreCase(delStudent)) {
+                                                System.out.println("Deleting student record: " + studentNames[qIndex][j]);
+                                                for (int k = j; k < studentCount[qIndex] - 1; k++) {
+                                                    studentNames[qIndex][k] = studentNames[qIndex][k + 1];
+                                                    studentScores[qIndex][k] = studentScores[qIndex][k + 1];
+        
+                                                    System.out.println("\n====================\n");
+        
+                                                }
+                                                studentCount[qIndex]--;
+                                                System.out.println("Student record deleted.");
+                                                System.out.println("Remaining Students:");
+                                                for (int j2 = 0; j2 < studentCount[qIndex]; j2++) {
+                                                    System.out.println(studentNames[qIndex][j2] + " - " + studentScores[qIndex][j2]);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                else {
+                                    System.out.println("\n====================\n");
+                                    System.out.println("Deletion Cancelled");
+                                    break;
                                 }
+                                
                                 break;
                         }
                     }
@@ -181,11 +271,13 @@ public class QuizSystemFinal {
                     int studentChoice = sc.nextInt();
                     sc.nextLine();
                     
-                    if (studentChoice == 3) break;
+                    if (studentChoice == 3)break;
                     
                     switch (studentChoice) {
                         case 1:
                             if (quizCount == 0) {
+                                System.out.println("\n====================\n");
+
                                 System.out.println("No quizzes available.");
                                 break;
                             }
@@ -195,24 +287,38 @@ public class QuizSystemFinal {
                                 System.out.println((i + 1) + ". " + quizNames[i] + " by " + teacherNames[i]);
                             }
                             
+                            System.out.println("\n====================\n");
+                                    
                             System.out.print("Enter quiz number to take: ");
                             int quizIndex = sc.nextInt() - 1;
                             sc.nextLine();
                             
-                            if (quizIndex < 0 || quizIndex >= quizCount) break;
+                            if (quizIndex < 0 || quizIndex >= quizCount) {
+                                
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Invalid quiz number.");
+                                break;
+                            }
+
+                            System.out.println("\n====================\n");
                             
                             System.out.print("Enter your name: ");
                             String studentName = sc.nextLine();
                             
+                            System.out.println("\n====================\n");
                             int score = 0;
                             int totalQuestions = quizQuestions[quizIndex].length;
                             for (int i = 0; i < totalQuestions; i++) {
-                                System.out.println("\nQuestion " + (i + 1) + ": " + quizQuestions[quizIndex][i]);
+                                System.out.println("Question " + (i + 1) + ": " + quizQuestions[quizIndex][i]);
                                 if (quizTypes[quizIndex].equals("Multiple Choice")) {
                                     for (int j = 0; j < 4; j++) {
                                         System.out.println((char) ('A' + j) + ". " + quizChoices[quizIndex][i][j]);
                                     }
                                 }
+
+                                System.out.println("\n====================\n");
+
                                 System.out.print("Your answer: ");
                                 String answer = sc.nextLine().trim().toUpperCase();
                                 
@@ -221,6 +327,8 @@ public class QuizSystemFinal {
                                 }
                             }
                             
+                            System.out.println("\n====================\n");
+
                             System.out.println("Quiz completed! Your score: " + score + " / " + totalQuestions);
                             studentNames[quizIndex][studentCount[quizIndex]] = studentName;
                             studentScores[quizIndex][studentCount[quizIndex]] = score;
@@ -228,18 +336,29 @@ public class QuizSystemFinal {
                             break;
                         
                         case 2:
-                            System.out.println("\nYour Scores:");
-                            for (int i = 0; i < quizCount; i++) {
-                                System.out.println("Quiz: " + quizNames[i]);
-                                for (int j = 0; j < studentCount[i]; j++) {
-                                    System.out.println(studentNames[i][j] + " - " + studentScores[i][j] + " / " + quizQuestions[i].length);
+                            if (quizCount == 0) {
+                                System.out.println("\n====================\n");
+
+                                System.out.println("No quizzes available.");
+                            }
+
+                            else {
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Your Scores:");
+                                for (int i = 0; i < quizCount; i++) {
+                                    System.out.println("Quiz: " + quizNames[i]);
+                                    for (int j = 0; j < studentCount[i]; j++) {
+                                        System.out.println(studentNames[i][j] + " - " + studentScores[i][j] + " / " + quizQuestions[i].length);
+                                    }
                                 }
                             }
-                            break;
                     }
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+
+                    System.out.println("\n====================\n");
+                    System.out.println("Exiting Program...");
                     return;
             }
         }
