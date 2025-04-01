@@ -15,8 +15,11 @@ public class QuizSystemFinal {
         String[][] studentNames = new String[100][10];
         int[][] studentScores = new int[100][10];
         int[] studentCount = new int[100];
-        
-        while (true) {
+
+        boolean exitMenu = false;
+
+        while (exitMenu == false) {
+
             System.out.println("\n=== QUIZ SYSTEM ===");
             System.out.println("1. Teacher Options");
             System.out.println("2. Student Options");
@@ -27,7 +30,9 @@ public class QuizSystemFinal {
             
             switch (choice) {
                 case 1:
-                    while (true) {
+                    boolean exitTeacher = false;
+
+                    while (exitTeacher == false) {
                         System.out.println("\n=== TEACHER MENU ===");
                         System.out.println("1. Create Quiz");
                         System.out.println("2. Delete Quiz");
@@ -37,8 +42,6 @@ public class QuizSystemFinal {
                         System.out.print("Enter choice: ");
                         int teacherChoice = sc.nextInt();
                         sc.nextLine();
-                        
-                        if (teacherChoice == 5) break;
                         
                         switch (teacherChoice) {
                             case 1:
@@ -82,14 +85,13 @@ public class QuizSystemFinal {
                                 quizQuestions[quizCount] = new String[numQuestions];
                                 quizAnswers[quizCount] = new String[numQuestions];
                                 quizChoices[quizCount] = (quizTypeChoice == 1) ? new String[numQuestions][4] : null;
-                                
-                                System.out.println("\n====================\n");
 
                                 for (int i = 0; i < numQuestions; i++) {
-                                    System.out.print("Enter question " + (i + 1) + ": ");
-                                    quizQuestions[quizCount][i] = sc.nextLine();
 
                                     System.out.println("\n====================\n");
+
+                                    System.out.print("Enter question " + (i + 1) + ": ");
+                                    quizQuestions[quizCount][i] = sc.nextLine();
                                     
                                     if (quizTypeChoice == 1) {
                                         System.out.println("Enter 4 choices:");
@@ -99,12 +101,15 @@ public class QuizSystemFinal {
                                         }
                                         System.out.print("Enter correct answer (A, B, C, or D): ");
 
-
-
                                     } else {
+
+                                        System.out.println("\n====================\n");
+
                                         System.out.print("Enter correct answer: ");
                                         
                                     }
+
+
                                     quizAnswers[quizCount][i] = sc.nextLine().trim().toUpperCase();
                                 }
                                 System.out.println("Quiz created successfully!");
@@ -154,6 +159,9 @@ public class QuizSystemFinal {
                                         }
                                         quizCount--;
                                         System.out.println("Quiz deleted.");
+
+                                        System.out.println("\n====================\n");
+
                                         System.out.println("Remaining Quizzes:");
                                         for (int i = 0; i < quizCount; i++) {
                                             System.out.println((i + 1) + ". " + quizNames[i]);
@@ -249,6 +257,12 @@ public class QuizSystemFinal {
                                                 }
                                                 break;
                                             }
+                                            else {
+                                                System.out.println("\n====================\n");
+                                                
+                                                System.out.println("Entered Student not Available.");
+                                                break;
+                                            }
                                         }
                                     }
                                 else {
@@ -256,110 +270,142 @@ public class QuizSystemFinal {
                                     System.out.println("Deletion Cancelled");
                                     break;
                                 }
-                                
-                                break;
+
+                                case 5:
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Returning to Main Menu...");
+                                    exitTeacher = true;
+                                    break;
+
+                                default:
+                                    System.out.println("\n====================\n");
+                                    System.out.println("Invalid choice. Please try again.");
+                                    break;
                         }
                     }
-                    break;
                 
                 case 2:
-                    System.out.println("\n=== STUDENT MENU ===");
-                    System.out.println("1. Take Quiz");
-                    System.out.println("2. View Scores");
-                    System.out.println("3. Back to Main Menu");
-                    System.out.print("Enter choice: ");
-                    int studentChoice = sc.nextInt();
-                    sc.nextLine();
-                    
-                    if (studentChoice == 3)break;
-                    
-                    switch (studentChoice) {
-                        case 1:
-                            if (quizCount == 0) {
-                                System.out.println("\n====================\n");
+                    boolean exitStudent = false;
 
-                                System.out.println("No quizzes available.");
-                                break;
-                            }
-                            
-                            System.out.println("\nAvailable Quizzes:");
-                            for (int i = 0; i < quizCount; i++) {
-                                System.out.println((i + 1) + ". " + quizNames[i] + " by " + teacherNames[i]);
-                            }
-                            
-                            System.out.println("\n====================\n");
-                                    
-                            System.out.print("Enter quiz number to take: ");
-                            int quizIndex = sc.nextInt() - 1;
-                            sc.nextLine();
-                            
-                            if (quizIndex < 0 || quizIndex >= quizCount) {
-                                
-                                System.out.println("\n====================\n");
-
-                                System.out.println("Invalid quiz number.");
-                                break;
-                            }
-
-                            System.out.println("\n====================\n");
-                            
-                            System.out.print("Enter your name: ");
-                            String studentName = sc.nextLine();
-                            
-                            System.out.println("\n====================\n");
-                            int score = 0;
-                            int totalQuestions = quizQuestions[quizIndex].length;
-                            for (int i = 0; i < totalQuestions; i++) {
-                                System.out.println("Question " + (i + 1) + ": " + quizQuestions[quizIndex][i]);
-                                if (quizTypes[quizIndex].equals("Multiple Choice")) {
-                                    for (int j = 0; j < 4; j++) {
-                                        System.out.println((char) ('A' + j) + ". " + quizChoices[quizIndex][i][j]);
-                                    }
-                                }
-
-                                System.out.println("\n====================\n");
-
-                                System.out.print("Your answer: ");
-                                String answer = sc.nextLine().trim().toUpperCase();
-                                
-                                if (answer.equals(quizAnswers[quizIndex][i])) {
-                                    score++;
-                                }
-                            }
-                            
-                            System.out.println("\n====================\n");
-
-                            System.out.println("Quiz completed! Your score: " + score + " / " + totalQuestions);
-                            studentNames[quizIndex][studentCount[quizIndex]] = studentName;
-                            studentScores[quizIndex][studentCount[quizIndex]] = score;
-                            studentCount[quizIndex]++;
-                            break;
+                    while (exitStudent == false) {
+                        System.out.println("\n=== STUDENT MENU ===");
+                        System.out.println("1. Take Quiz");
+                        System.out.println("2. View Scores");
+                        System.out.println("3. Back to Main Menu");
+                        System.out.print("Enter choice: ");
+                        int studentChoice = sc.nextInt();
+                        sc.nextLine();
                         
-                        case 2:
-                            if (quizCount == 0) {
-                                System.out.println("\n====================\n");
+                        switch (studentChoice) {
+                            case 1:
+                                if (quizCount == 0) {
+                                    System.out.println("\n====================\n");
 
-                                System.out.println("No quizzes available.");
-                            }
-
-                            else {
-                                System.out.println("\n====================\n");
-
-                                System.out.println("Your Scores:");
+                                    System.out.println("No quizzes available.");
+                                    break;
+                                }
+                                
+                                System.out.println("\nAvailable Quizzes:");
                                 for (int i = 0; i < quizCount; i++) {
-                                    System.out.println("Quiz: " + quizNames[i]);
-                                    for (int j = 0; j < studentCount[i]; j++) {
-                                        System.out.println(studentNames[i][j] + " - " + studentScores[i][j] + " / " + quizQuestions[i].length);
+                                    System.out.println((i + 1) + ". " + quizNames[i] + " by " + teacherNames[i]);
+                                }
+                                
+                                System.out.println("\n====================\n");
+                                        
+                                System.out.print("Enter quiz number to take: ");
+                                int quizIndex = sc.nextInt() - 1;
+                                sc.nextLine();
+                                
+                                if (quizIndex < 0 || quizIndex >= quizCount) {
+                                    
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Invalid quiz number.");
+                                    break;
+                                }
+
+                                System.out.println("\n====================\n");
+                                
+                                System.out.print("Enter your name: ");
+                                String studentName = sc.nextLine();
+
+                                int score = 0;
+                                int totalQuestions = quizQuestions[quizIndex].length;
+                                for (int i = 0; i < totalQuestions; i++) {
+
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Question " + (i + 1) + ": " + quizQuestions[quizIndex][i]);
+                                    if (quizTypes[quizIndex].equals("Multiple Choice")) {
+                                        for (int j = 0; j < 4; j++) {
+                                            System.out.println((char) ('A' + j) + ". " + quizChoices[quizIndex][i][j]);
+                                        }
+                                    }
+
+                                    System.out.println("\n====================\n");
+
+                                    System.out.print("Your answer: ");
+                                    String answer = sc.nextLine().trim().toUpperCase();
+                                    
+                                    if (answer.equals(quizAnswers[quizIndex][i])) {
+                                        score++;
                                     }
                                 }
+                                
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Quiz completed! Your score: " + score + " / " + totalQuestions);
+                                studentNames[quizIndex][studentCount[quizIndex]] = studentName;
+                                studentScores[quizIndex][studentCount[quizIndex]] = score;
+                                studentCount[quizIndex]++;
+                                break;
+                            case 2:
+                                if (quizCount == 0) {
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("No quizzes available.");
+                                    break;
+                                }
+
+                                else {
+                                    System.out.println("\n====================\n");
+
+                                    System.out.println("Your Scores:");
+                                    for (int i = 0; i < quizCount; i++) {
+                                        System.out.println("Quiz: " + quizNames[i]);
+                                        for (int j = 0; j < studentCount[i]; j++) {
+                                            System.out.println(studentNames[i][j] + " - " + studentScores[i][j] + " / " + quizQuestions[i].length);
+                                        }
+                                    }
+                                }
+                                break;
+                            case 3:
+                                System.out.println("\n====================\n");
+
+                                System.out.println("Returning to Main Menu...");
+                                exitStudent = true;
+                                break;
+                            
+                            default:
+                                System.out.println("\n====================\n");
+                                System.out.println("Invalid choice. Please try again.");
+                                break;
                             }
-                    }
+                        }
                     break;
                 case 3:
 
                     System.out.println("\n====================\n");
+
                     System.out.println("Exiting Program...");
-                    return;
+                    exitMenu = true;
+                    break;
+
+                default:
+                    System.out.println("\n====================\n");
+                    System.out.println("Invalid choice. Try again.");
+                    break;
             }
         }
     }
