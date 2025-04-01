@@ -284,7 +284,7 @@ public class QuizSystemFinal {
                                     break;
                         }
                     }
-                
+                    break;
                 case 2:
                     boolean exitStudent = false;
 
