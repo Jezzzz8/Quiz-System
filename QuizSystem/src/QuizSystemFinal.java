@@ -100,6 +100,7 @@ public class QuizSystemFinal {
                                             quizChoices[quizCount][i][j] = sc.nextLine();
                                         }
                                         System.out.print("Enter correct answer (A, B, C, or D): ");
+                                    
 
                                     } else {
 
@@ -350,6 +351,10 @@ public class QuizSystemFinal {
                                     
                                     if (answer.equals(quizAnswers[quizIndex][i])) {
                                         score++;
+                                        System.out.println("Correct!");
+                                    }
+                                    else {
+                                        System.out.println("Wrong!");
                                     }
                                 }
                                 

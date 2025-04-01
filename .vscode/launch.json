@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Quiz2",
+            "request": "launch",
+            "mainClass": "Quiz2",
+            "projectName": "Quiz-System_342b6581"
+        },
+        {
+            "type": "java",
+            "name": "QuizSystem",
+            "request": "launch",
+            "mainClass": "QuizSystem",
+            "projectName": "Quiz-System_342b6581"
+        },
+        {
+            "type": "java",
+            "name": "QuizSystemFinal",
+            "request": "launch",
+            "mainClass": "QuizSystemFinal",
+            "projectName": "Quiz-System_342b6581"
+        }
+    ]
+}
