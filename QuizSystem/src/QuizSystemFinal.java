@@ -375,7 +375,7 @@ public class QuizSystemFinal {
 
                                 else {
                                     System.out.println("\n====================\n");
-
+                                    
                                     System.out.println("Your Scores:");
                                     for (int i = 0; i < quizCount; i++) {
                                         System.out.println("Quiz: " + quizNames[i]);
